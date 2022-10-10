@@ -1,10 +1,14 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_module1/common_widget.dart';
+import 'package:flutter_module1/palette.dart';
+import 'package:flutter_module1/views/home_screen_network.dart';
 import 'package:flutter_module2/main.dart';
 import 'au_recharge_page.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 
 void main() => runApp(const MyApp());
 
@@ -16,6 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo First',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -25,15 +30,17 @@ class MyApp extends StatelessWidget {
         // "hot reload" (press "r" in the console where you ran "flutter run",
         // or press Run > Flutter Hot Reload in a Flutter IDE). Notice that the
         // counter didn't reset back to zero; the application is not restarted.
-        primarySwatch: Colors.blue,
+        // primarySwatch: Colors.blue,
+        primarySwatch: generateMaterialColor(Palette.primary),
       ),
         // home: const MyHomePage(title: 'Flutter Demo Home Page First'),
-        // initialRoute: "/first",
+        initialRoute: "/first",
         routes: {
           "/first": (context) => const MyHomePage(title: 'Flutter Demo Home Page First'),
           // "/fastag": (context) => Navigator.pushNamed(context, '/second'),
           "/fastag": (context) => RechargeDashBoard(),
           "/secondScreen": (context) => MyHomePage1(title: 'data from screen 1',),
+          "/homeScreenNetwork": (context) => HomeScreenNetwork(),
           // "/home": (context) => HomeScreenFB(),
           // "/billpay": (context) => BillPayScreen(),
           // "/fastag": (context) => RechargeDashBoard(),
@@ -67,8 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    DartPluginRegistrant.ensureInitialized();
-
+    // DartPluginRegistrant.ensureInitialized();
+    //
     _getTempToken('getTempToken');
   }
 
@@ -187,12 +194,17 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        // title: Text(widget.title),
-        title: Text(_tempToken),
-      ),
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   // Here we take the value from the MyHomePage object that was created by
+      //   // the App.build method, and use it to set our appbar title.
+      //   // title: Text(widget.title),
+      //   title: Text(_tempToken),
+      // ),
+      appBar: getAppBar(_tempToken, Icon(
+        Icons.arrow_back,
+        color: Palette.primaryPurple,
+      ), 0, 0, context, Palette.primaryPurple),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
@@ -251,6 +263,23 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushNamed(context, '/fastag');
               },
               child: const Text('Second screen'),
+            ),
+
+            SizedBox(
+              height: 10,
+            ),
+
+            RaisedButton(
+              //     disabledColor: Colors.red,
+              // disabledTextColor: Colors.black,
+              padding: const EdgeInsets.all(20),
+              textColor: Colors.white,
+              color: Colors.blue,
+              onPressed: () {
+                _counter++;
+                Navigator.pushNamed(context, '/homeScreenNetwork');
+              },
+              child: const Text('Network call screen'),
             ),
           ],
         ),

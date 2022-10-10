@@ -115,16 +115,16 @@ class _RechargeDashBoardState extends State<RechargeDashBoard> {
                     Align(
                         alignment: Alignment.topLeft,
                         child: getTextView('Honda City (Office car back)',
-                            20.00, FontWeight.bold)
+                            20.00, FontWeight.bold, Colors.white)
                     ),
                     Align(
                         alignment: Alignment.topLeft,
                         child: getTextView(
-                            'MH xx xx 1234', 20.00, FontWeight.normal)
+                            'MH xx xx 1234', 20.00, FontWeight.normal, Colors.white)
                     ),
                     Align(
                         alignment: Alignment.topLeft,
-                        child: getTextView('₹200.67 ', 20.00, FontWeight.bold)
+                        child: getTextView('₹200.67 ', 20.00, FontWeight.bold, Colors.white)
                     ),
                   ],
                 ),
